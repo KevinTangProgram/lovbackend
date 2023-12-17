@@ -14,6 +14,10 @@ const EmailSchema = new Schema ({
         type: Number,
         required: true
     },
+    message: {
+        type: Boolean,
+        required: true
+    }
 });
 
 const Email = mongoose.model("email", EmailSchema);
