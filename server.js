@@ -129,7 +129,19 @@ app.get('/mainlogo', async (req, res) => {
     }
     else
     {
-        addressSearch.timestamp.push(Date.now());
+        if (addressSearch.timestamp.length % 2 === 1)
+        {
+            addressSearch.timestamp.push(Date.now());
+        }
+        else if (Date.now() - addressSearch.timestamp[addressSearch.timestamp.length - 1] > 300000)
+        {
+            addressSearch.timestamp.push(Date.now());
+        }
+        else
+        {
+            addressSearch.timestamp[addressSearch.timestamp.length - 1] = Date.now();
+        }
+        
         const post = await Address.findByIdAndUpdate(addressSearch.id, {
             address: addressSearch.address,
             timestamp: addressSearch.timestamp,
